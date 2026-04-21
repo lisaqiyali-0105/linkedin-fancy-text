@@ -24,19 +24,51 @@ Nobody wants to read. A skill should just handle it.
 
 LinkedIn doesn't support markdown. But Unicode mathematical characters *look* like bold and italic text, and they paste correctly into LinkedIn.
 
-Mark up your post, run `/linkedin-fancy-text`, and you get copy-paste-ready Unicode back.
+Run `/linkedin-fancy-text`, give Claude your post, and you get copy-paste-ready Unicode back.
 
 ---
 
-## Format Markers
+## Three Ways to Use This
 
-| Marker | Result |
-|--------|--------|
-| `**text**` | 𝐛𝐨𝐥𝐝 |
-| `_text_` | 𝑖𝑡𝑎𝑙𝑖𝑐 |
-| `***text***` | 𝒃𝒐𝒍𝒅 𝒊𝒕𝒂𝒍𝒊𝒄 |
+**Use case 1 — Paste raw text, describe what to format**
 
-Everything else — punctuation, emoji, numbers, line breaks — passes through unchanged.
+Paste your post as-is. Claude will ask what you want bolded or italicized, and you describe it in plain English.
+
+> *"Bold the first line and bold italic 'AT ALL'"*
+
+**Use case 2 — Point to a Markdown or Obsidian file**
+
+Give Claude the file path. It reads your existing `**markers**` and converts them automatically.
+
+> *"Format this: `~/Documents/my-post.md`"*
+
+**Use case 3 — Point to a Word doc**
+
+Give Claude the `.docx` path. It reads exactly what you bolded and italicized in Word and converts it to Unicode — no re-formatting needed.
+
+> *"Format this: `~/Documents/my-post.docx`"*
+
+---
+
+## Pro Tip — Enable Fullscreen Mode
+
+Editing text inside a terminal is annoying by default. You can't click to place your cursor — you're stuck pressing arrow keys to reach the word you want to fix.
+
+Claude Code's fullscreen mode fixes this. Enable it once:
+
+```bash
+# Run once in the current session
+/tui fullscreen
+
+# Or make it permanent in ~/.claude/settings.json
+{
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  }
+}
+```
+
+With fullscreen mode on, you can click anywhere in your input to place your cursor — mid-sentence, mid-word, wherever. Makes editing your post inside the terminal feel normal.
 
 ---
 
