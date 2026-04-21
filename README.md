@@ -16,13 +16,16 @@ Nobody wants to read. A skill should just handle it.
 
 ## Before & After
 
-**Before** — plain text with literal markers:
-
-![Before](before.png)
-
-**After** — paste into LinkedIn and the formatting shows up:
-
-![After](after.png)
+<table>
+  <tr>
+    <th>Before — plain text with markers</th>
+    <th>After — paste into LinkedIn</th>
+  </tr>
+  <tr>
+    <td><img src="before.png" alt="Before" width="340"/></td>
+    <td><img src="after.png" alt="After" width="340"/></td>
+  </tr>
+</table>
 
 ---
 
