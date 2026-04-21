@@ -1,6 +1,6 @@
 ---
-name: linkedin-format
-description: Formats LinkedIn post text with Unicode bold/italic so it stands out visually. Triggered when Lisa says /linkedin-format, "format this for LinkedIn", or "format my LinkedIn post". Takes a post with **bold** and _italic_ markers and converts to copy-paste ready Unicode.
+name: linkedin-fancy-text
+description: Formats LinkedIn post text with Unicode bold/italic so it stands out visually. Triggered when Lisa says /linkedin-fancy-text, "format this for LinkedIn", or "format my LinkedIn post". Takes a post with **bold** and _italic_ markers and converts to copy-paste ready Unicode.
 ---
 
 # LinkedIn Text Formatter
