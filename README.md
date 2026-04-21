@@ -16,16 +16,7 @@ Nobody wants to read. A skill should just handle it.
 
 ## Before & After
 
-<table>
-  <tr>
-    <th>Before — plain text with markers</th>
-    <th>After — paste into LinkedIn</th>
-  </tr>
-  <tr>
-    <td><img src="before.png" alt="Before" width="340"/></td>
-    <td><img src="after.png" alt="After" width="340"/></td>
-  </tr>
-</table>
+![Before and After](before-after.png)
 
 ---
 
@@ -33,7 +24,7 @@ Nobody wants to read. A skill should just handle it.
 
 LinkedIn doesn't support markdown. But Unicode mathematical characters *look* like bold and italic text, and they paste correctly into LinkedIn.
 
-Mark up your post, run `/linkedin-format`, and you get copy-paste-ready Unicode back.
+Mark up your post, run `/linkedin-fancy-text`, and you get copy-paste-ready Unicode back.
 
 ---
 
@@ -51,10 +42,10 @@ Everything else — punctuation, emoji, numbers, line breaks — passes through 
 
 ## Installation
 
-Copy the `linkedin-format` folder into your Claude Code skills directory:
+Copy the `linkedin-fancy-text` folder into your Claude Code skills directory:
 
 ```
-~/.claude/skills/linkedin-format/
+~/.claude/skills/linkedin-fancy-text/
 ```
 
 Requires Python 3.6+. No dependencies.
