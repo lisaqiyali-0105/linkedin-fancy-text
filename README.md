@@ -52,4 +52,4 @@ Requires Python 3.6+. No dependencies.
 
 ---
 
-*Built with Claude Code.*
+*Built by Lisa Qiya Li with Claude Code.*
