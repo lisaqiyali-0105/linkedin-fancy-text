@@ -1,10 +1,16 @@
 # linkedin-format — Claude Code Skill
 
-Have you ever wondered how others post with fancy fonts on LinkedIn? 🙋 I did, and I asked around until I found a guide online. But the guide was long, and I didn't want to read it, so I dropped the link into Claude Code and turned it into a skill I can use to copy-paste formatted LinkedIn posts instead.
+Have you ever wondered how others post with fancy fonts on LinkedIn? 🙋 
 
-Claude Code one-shotted the skill.
+I did, and I asked around until a friendly shared an online guide.
 
-No more lengthy user guides. Nobody wants to read. A skill should just handle it.
+But the guide was long, and I didn't want to read it. So I dropped the link into Claude Code and turned it into a skill I can use to copy-paste formatted LinkedIn posts instead.
+
+Claude Code one-shotted the skill. 💥
+
+No more lengthy user guides. 
+
+Nobody wants to read. A skill should just handle it.
 
 ---
 
