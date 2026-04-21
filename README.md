@@ -1,6 +1,6 @@
-# linkedin-format — Claude Code Skill
+# linkedin-fancy-text — Claude Code Skill
 
-Have you ever wondered how others post with fancy fonts on LinkedIn? 🙋 
+Have you ever wondered how others post with fancy text (e.g., bold, italics) on LinkedIn? 🙋 
 
 I did, and I asked around until a friendly shared an online guide.
 
