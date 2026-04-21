@@ -97,6 +97,30 @@ def whole_style(raw: str, style: str) -> str:
     return convert(raw, mapping)
 
 
+def format_docx(filepath: str) -> str:
+    """
+    Read a .docx file and convert bold/italic runs directly to Unicode.
+    Preserves paragraph structure. No markers needed — reads formatting metadata.
+    """
+    from docx import Document
+    doc = Document(filepath)
+    paragraphs = []
+    for para in doc.paragraphs:
+        line = ''
+        for run in para.runs:
+            text = run.text
+            if run.bold and run.italic:
+                line += convert(text, BOLD_ITALIC)
+            elif run.bold:
+                line += convert(text, BOLD)
+            elif run.italic:
+                line += convert(text, ITALIC)
+            else:
+                line += text
+        paragraphs.append(line)
+    return '\n'.join(paragraphs)
+
+
 # ── Entry point ─────────────────────────────────────────────────────────────────
 
 def main():
@@ -109,8 +133,16 @@ def main():
         style = args[idx + 1]
         args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
 
-    if args:
-        with open(args[0], 'r', encoding='utf-8') as f:
+    filepath = args[0] if args else None
+
+    # .docx — read formatting metadata directly
+    if filepath and filepath.endswith('.docx'):
+        print(format_docx(filepath), end='')
+        return
+
+    # .md or plain text — read file or stdin
+    if filepath:
+        with open(filepath, 'r', encoding='utf-8') as f:
             text = f.read()
     else:
         text = sys.stdin.read()

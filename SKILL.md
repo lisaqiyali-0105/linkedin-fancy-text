@@ -1,86 +1,92 @@
 ---
 name: linkedin-fancy-text
-description: Formats LinkedIn post text with Unicode bold/italic so it stands out visually. Triggered when Lisa says /linkedin-fancy-text, "format this for LinkedIn", or "format my LinkedIn post". Takes a post with **bold** and _italic_ markers and converts to copy-paste ready Unicode.
+description: Converts LinkedIn post text to Unicode bold/italic for copy-paste into LinkedIn. Triggered by /linkedin-fancy-text, "format this for LinkedIn", or "format my LinkedIn post". Handles raw text, .md files, and .docx files.
 ---
 
-# LinkedIn Text Formatter
+# LinkedIn Fancy Text
 
 ## What This Does
-LinkedIn doesn't support native text formatting — but Unicode mathematical characters *look* like bold/italic text. This skill converts a plain post with markdown-style markers into Unicode that you can paste directly into LinkedIn.
+LinkedIn doesn't support native formatting — but Unicode mathematical characters look like bold/italic text and paste correctly. This skill takes a post and returns Unicode-formatted text ready to copy into LinkedIn.
 
 ## Trigger
-`/linkedin-format` — or any request like "format this for LinkedIn", "make this LinkedIn-ready", "convert my post formatting"
+`/linkedin-fancy-text` — or "format this for LinkedIn", "make this LinkedIn-ready", "format my post"
 
 ---
 
-## Format Markers
+## Step 1 — Detect the input type
 
-Tell Lisa to mark up her post using:
+### Path A — Raw text pasted (no file path)
 
-| Marker | Style | Example |
-|--------|-------|---------|
-| `**text**` | 𝐁𝐨𝐥𝐝 (serif) | `**Key insight**` → 𝐊𝐞𝐲 𝐢𝐧𝐬𝐢𝐠𝐡𝐭 |
-| `_text_` | 𝐼𝑡𝑎𝑙𝑖𝑐 (serif) | `_note:_` → 𝑛𝑜𝑡𝑒: |
-| `***text***` | 𝑩𝒐𝒍𝒅 𝒊𝒕𝒂𝒍𝒊𝒄 | `***big idea***` → 𝒃𝒊𝒈 𝒊𝒅𝒆𝒂 |
+User pastes their post directly. Check if it contains `**markers**` or `_markers_`:
+
+- **Markers present** → skip to Step 2A, convert silently
+- **No markers** → ask: *"What do you want to bold, italic, or bold italic? Describe it in plain English — e.g. 'bold the first line, bold italic AT ALL'."*
+  - Once the user responds, add the markers to the text yourself, then go to Step 2A
+
+### Path B — Markdown or Obsidian file (`.md`)
+
+User provides a file path ending in `.md`. Read the file with the Read tool. Convert any `**markers**` found. Go to Step 2A.
+
+### Path C — Word document (`.docx`)
+
+User provides a `.docx` file path. Go straight to Step 2B — the script reads formatting metadata directly from the file.
 
 ---
 
-## Workflow
+## Step 2A — Run the formatter (text with markers)
 
-### Step 1 — Get the text
-
-If Lisa hasn't pasted text yet, prompt:
-
-> Paste your LinkedIn post below. Wrap what you want formatted:
-> - `**text**` → 𝐛𝐨𝐥𝐝
-> - `_text_` → 𝑖𝑡𝑎𝑙𝑖𝑐
-> - `***text***` → 𝒃𝒐𝒍𝒅 𝒊𝒕𝒂𝒍𝒊𝒄
->
-> Everything else passes through unchanged — punctuation, emoji, numbers, line breaks all stay as-is.
-
-If Lisa pastes her text with the command in one message, skip the prompt and go straight to Step 2.
-
-### Step 2 — Run the formatter
-
-Write the input text to `/tmp/linkedin_input.txt` using the Write tool, then run:
+Write the marked-up text to `/tmp/linkedin_input.txt`, then run:
 
 ```bash
-python3 ~/.claude/skills/linkedin-format/formatter.py /tmp/linkedin_input.txt
+python3 ~/.claude/skills/linkedin-fancy-text/formatter.py /tmp/linkedin_input.txt
 ```
 
-Capture the output.
+Capture the output and go to Step 3.
 
-### Step 3 — Present the result
+## Step 2B — Run the formatter (Word doc)
 
-Show the formatted output like this — NOT in a code block (LinkedIn paste needs clean text):
+Run directly on the `.docx` file — no temp file needed:
+
+```bash
+python3 ~/.claude/skills/linkedin-fancy-text/formatter.py /path/to/file.docx
+```
+
+Capture the output and go to Step 3.
+
+---
+
+## Step 3 — Present the result
+
+Show the output as plain text — NOT in a code block:
 
 ---
 
 ✅ **Copy this into LinkedIn:**
 
-[formatted text, presented as plain output]
+[formatted text here]
 
 ---
 
-Then ask: "Want to adjust any of the formatting?"
+Then ask: "Want to adjust anything?"
 
 ---
 
 ## Whole-Post Style (Optional)
 
-If Lisa wants her *entire post* in a consistent font style (not just specific words), run with `--style`:
+If the user wants the entire post in one consistent style, use `--style`:
 
 ```bash
-python3 ~/.claude/skills/linkedin-format/formatter.py --style sans_bold /tmp/linkedin_input.txt
+python3 ~/.claude/skills/linkedin-fancy-text/formatter.py --style sans_bold /tmp/linkedin_input.txt
 ```
 
 Available styles: `bold`, `italic`, `bold_italic`, `sans_bold`
 
-Offer this if Lisa asks "can you make the whole thing bold?" or "try a different font."
+Offer this if the user asks "make the whole thing bold" or "try a different font."
 
 ---
 
-## Common Mistakes to Avoid
-- Do NOT put the output in a triple-backtick code block — it adds noise and makes it harder to copy cleanly
-- Do NOT modify the post content — only convert the markers, leave everything else exactly as written
-- Do NOT skip the formatter script and try to do the Unicode conversion manually — use the script for accuracy
+## Rules
+- Never put output in a triple-backtick code block — it makes it hard to copy
+- Never modify post content — only apply formatting
+- Never do Unicode conversion manually — always use the script
+- For .docx files, always use the script directly on the file path — do not extract text first
